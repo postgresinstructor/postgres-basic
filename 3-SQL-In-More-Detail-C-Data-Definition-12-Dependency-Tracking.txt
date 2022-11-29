@@ -1,0 +1,12 @@
+
+create type door_state as enum ('OPEN','CLOSE','AJAR');
+
+create table hotel_rooms_state (door_id int, check_date timestamp, door_status door_state);
+
+create function get_door_state_time(p_state door_state) returns timestamp as 
+'select check_date from hotel_rooms_state where door_status = $1 '
+language sql;
+
+drop type door_state;
+
+drop table hotel_rooms_state;

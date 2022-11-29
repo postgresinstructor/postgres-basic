@@ -1,0 +1,83 @@
+
+create user user2 with password 'user1';
+
+create user user2 with password 'user2';
+
+create table tbl1 (id serial, name varchar(30), last_name varchar(30));
+
+create table tbl2 (id serial, name varchar(30), last_name varchar(30));
+
+insert into tbl1 (name, last_name) values ('Anthony', 'Quin');
+insert into tbl1 (name, last_name) values ('Marlon', 'Brando');
+
+
+insert into tbl2 (name, last_name) values ('Duff', 'Bezzos');
+insert into tbl2 (name, last_name) values ('Pink', 'Martin');
+
+
+\dt tbl1|tbl2
+
+\du 
+
+postgres=# alter table tbl1 owner to user1;
+ALTER TABLE
+postgres=# alter table tbl2 owner to user2;
+ALTER TABLE
+
+grant select on employee to user1;
+
+revoke select on employee from user1;
+
+grant all on employee to user1;
+
+grant all on employee to public; 
+
+revoke all on employee from public;
+
+ grant update on tbl1 to user2;
+
+update tbl1 set name='ANTHONY' where id=1;
+
+update tbl1 set name='ANTHONY' ;
+
+grant select on tbl1 to user2;
+
+update tbl1 set name='ANTHONY' where id=1;
+
+revoke all on tbl1 from user2;
+
+grant select (id,name) on tbl1 to user2;
+
+grant update (id,name) on tbl1 to user2;
+
+ update tbl1 set last_name ='DEFAULT' where id=1;
+
+ update tbl1 set name ='DEFAULT' where id=1;
+
+
+
+create schema new_schema;
+
+ grant create on database postgres to user1;
+
+create schema new_schema;
+
+
+create database new_database;
+
+
+alter user user1 createdb;
+
+ alter user user1 nocreatedb;
+
+--
+create user user3 with password 'user3';
+--
+
+ grant select on tbl1 to user2 with grant option;
+
+
+grant select on tbl1 to user3;
+
+
+ select * from tbl1;

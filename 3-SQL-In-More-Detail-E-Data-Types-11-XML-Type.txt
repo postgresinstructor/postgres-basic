@@ -1,0 +1,42 @@
+
+select '<first>value</first>'::xml;
+
+select xmlserialize( '<first>value</first>'::xml);
+
+select xmlconcat('<milkiway/>','<galaxy>Earth</galaxy>')
+
+select xmlconcat('<?xml version="1.0" ?><value1>a</value1>','<?xml version="1.0" ?><value2>b</value2>');
+
+select xmlelement(name City);
+
+select xmlelement(name City,xmlattributes('2700000' as population));
+
+select xmlelement(name City,xmlattributes('2700000' as population),'Chicago');
+
+select xmlelement(name country,xmlattributes('330M' as population),xmlelement(name city,xmlattributes('2700000' as population),'Chicago'),'USA');
+
+select xmlforest('Chicago' as City, 'USA' as Country);
+
+select xmlforest(name, last_name, salary) from employee ;
+
+create table xml_test (id serial, content xml);
+
+insert into xml_test ( content) values ('<city>Chicago</city>'),('<city>Los Angeles</city>'),('<city>New York</city>');
+
+select xmlagg(content) from xml_test;
+
+select '<?xml version="1.0" ?><country><city>Chicago</city><city>Los Angeles</city><city>New York</city></country>'::xml is document;
+
+select xml_is_well_formed('<city>Oregon</country>');
+
+select xml_is_well_formed('<city>Oregon</city>');
+
+
+ SELECT xpath('/mynamespace:a/country/text()', '<mynamespace:a xmlns:mynamespace="http://example.com"><country>USA<city>Oregon</city><city>Chicago</city><city>Denver</city><city>Los Angeles</city></country></mynamespace:a>',
+  ARRAY[ARRAY['mynamespace', 'http://example.com']]);
+
+ SELECT xpath('/mynamespace:a/country/city/text()', '<mynamespace:a xmlns:mynamespace="http://example.com"><country>USA<city>Oregon</city><city>Chicago</city><city>Denver</city><city>Los Angeles</city></country></mynamespace:a>',
+  ARRAY[ARRAY['mynamespace', 'http://example.com']]);
+
+ SELECT xpath('/mynamespace:a//text()', '<mynamespace:a xmlns:mynamespace="http://example.com"><country>USA<city>Oregon</city><city>Chicago</city><city>Denver</city><city>Los Angeles</city></country></mynamespace:a>',
+  ARRAY[ARRAY['mynamespace', 'http://example.com']]);

@@ -1,0 +1,4 @@
+
+select gen_random_uuid();
+
+select '014640b8-cde5-46a7-9150-cc291c2b73cd'::UUID='1722b59f-37cf-49ca-ac80-09af374e928d'::UUID;

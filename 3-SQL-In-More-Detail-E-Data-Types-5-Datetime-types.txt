@@ -1,0 +1,65 @@
+
+create table time_test ( col1 timestamp, col2 timestamp with time zone, col3 date, col4 time, col5 time with time zone, col6 interval);
+
+\dt time_test 
+
+insert into time_test ( col1, col2, col3, col4, col5, col6) values ('2022.10.10 21:00:01.123450', '2022.10.10 21:00:01.123450+02', '2022.10.10', '21:00:01.123450', '21:00:01.123450+02', '10 21:00:01.123450');
+
+insert into time_test ( col1, col2, col3, col4, col5, col6) values ('October 10,2022 21:00:01.123450', 'October 10,2022 21:00:01.123450+02', 'October 10,2022', '09:00:01.123450 PM', '09:00:01.123450+02 PM', '10 Days 21 Hours  1.123450 seconds');
+
+insert into time_test ( col1, col2, col3, col4, col5, col6) values ('Oct-10-22 21:00:01.123450', 'Oct-10-22 21:00:01.123450+02', 'Oct-10-22', '21:00:01.123450', '21:00:01.123450+02', '10 21:00:01.123450');
+
+
+insert into time_test ( col1, col2, col3, col4, col5, col6) values ('17.10.2022 21:00:01.123450', '17.10.2022 21:00:01.123450 Europe/London', '17.10.2022', '21:00:01.123450', '21:00:01.123450 PDT', '10 21:00:01.123450');
+
+
+insert into time_test ( col1, col2, col3, col4, col5, col6) values (to_timestamp('17.10.2022 21:00:01.123450','dd.mm.yyyy hh24:mi:ss.us'), to_timestamp('17.10.2022 21:00:01.123450 Europe/London','dd.mm.yyyy hh24:mi:ss.us'), to_date('17.10.2022','dd.mm.yyyy'), '21:00:01.123450', '21:00:01.123450 PDT', '10 21:00:01.123450');
+
+select '123,23'::numeric;
+
+select to_number('123,23','999,99')
+
+
+select to_char(123456749679.9876,'SG999G999G999G999D99');
+
+select to_char(now(), 'DD Mon YYYY hh24:mi:ss.ff3');
+
+select to_char(now(), 'YYYY.mm.dd Day hh24:mi');
+
+select to_char(now(), 'DDD of yyyy');
+
+select '2022.01.01'::date +10;
+
+select '2022.01.01'::date+'09:05:01 AM'::time 
+
+select '2022.01.01'::date + interval '10 days';
+
+select '2022.01.01'::date + interval '1 day'*10;
+
+select now()+interval '1 hour'*24;
+
+select '2022.06.05'::date-'2022.06.01'::date;
+
+select current_time, localtime, current_timestamp, localtimestamp;
+
+select pg_sleep(5);
+
+select pg_sleep_for(interval '1 second');
+
+select pg_sleep_for(interval '1 day');
+
+select (DATE '2023.01.01', DATE '2023.03.09') 
+	overlaps 
+	( DATE '2023.03.07', DATE '2023.04.09');
+	
+select extract('Century' from now());	
+select extract('quarter' from now());	
+select extract('decade' from now());
+select extract('dow' from now());
+select extract('doy' from now());
+select extract('day' from now());
+select extract('month' from now());
+select extract('year' from now());
+select extract('week' from now());
+
+select now(), date_trunc('minute', now());

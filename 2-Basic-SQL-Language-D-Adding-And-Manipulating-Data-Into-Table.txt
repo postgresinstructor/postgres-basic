@@ -1,0 +1,101 @@
+
+--Companies 
+
+insert into company ( company_name ) values ( 'Zara');
+insert into company ( company_name ) values ( 'H & M');
+insert into company ( company_name ) values ( 'Skechers');
+
+insert into company ( company_name) values ('Adidas'), ('Nike'), ('Columbia')
+
+select * from company;
+
+-- Products 
+
+	-- Zara products 
+	insert into product (company_id, product_name, price) values ( 1, 'PRINTED SATIN DRESS', 50 ), ( 1, 'MINI DRESS WITH CHERRY EMBROIDERY', 45 ), ( 1, 'CYCLING TRAINING TOP', 49 ), ( 1, 'YOGA PRINT T-SHIRT', 30 );
+
+	-- H & M Products 
+	insert into product (company_id, product_name, price) values ( 2, 'SMOCKED COTTON DRESS', 20 ), ( 2, 'PATTERNED SHIRT', 26 ), ( 2, 'COOLMAX® RELAXED FIT T-SHIRT', 10 ), ( 2, 'SLIM FIT SPORTS TOP', 14 );
+
+	-- Skechers Products
+
+	insert into product (company_id, product_name, price) values ( 3, 'GO WALK 6 - İCONIC VISION 124514 BBK', 100 ), ( 3, 'GO WALK JOY- GRATIFY 15612 TPE', 50 ), ( 3, 'TRACK-RIPKENT 232399 NVBL', 90 ), ( 3, 'STAMINA AIRY - HIGH WIND 237430 CCBK', 90 );
+
+
+	-- Columbia Products 
+	insert into product (company_id, product_name, price) values ( 6, 'GIRLS'' SUTTLE MOUNTAIN™ LONG INSULATED JACKET', 60 );
+
+
+	-- Nike Products 
+	insert into product (company_id, product_name, price) values ( 5, 'NIKE REACT INFINITY RUN FLYKNIT 3', 260 );
+
+	-- Adidas Products 
+	insert into product (company_id, product_name, price) values ( 4, 'COPA MUNDIAL 21 FIRM GROUND BOOTS', 160 );
+	
+-- Customers
+
+insert into customer ( customer_name, customer_address, customer_phone ) 
+values ('Wade Harris','711-2880 Nulla St. Mankato Mississippi 96522','(257) 563-7401'),
+('Dave Thomas','P.O. Box 283 8562 Fusce Rd. Frederick Nebraska 20620','(372) 587-2335'),
+('Ivan Scott','606-3727 Ullamcorper. Street Roseville NH 11523','(786) 713-8616'),
+('Riley Miller','7292 Dictum Av. San Antonio MI 47096','(492) 709-6392'),
+('Dan Martin','191-103 Integer Rd. Corona New Mexico 08219','(404) 960-3807'),
+('Daisy White','935-9940 Tortor. Street Santa Rosa MN 98804','(684) 579-1879'),
+('Isabel Perry','P.O. Box 929 4189 Nunc Road Lebanon KY 69409','(389) 737-2852'),
+('Angela Clark','P.O. Box 132 1599 Curabitur Rd. Bandera South Dakota 45149','(959) 119-8364'),
+('Sabrina Stanley','347-7666 Iaculis St. Woodruff SC 49854','(468) 353-2641'),
+('Miranda Terry','666-4366 Lacinia Avenue Idaho Falls Ohio 19253','(248) 675-4007'),
+('Rose Lucas','P.O. Box 147 2546 Sociosqu Rd. Bethlehem Utah 02913','(939) 353-1107'),
+('Julia Guzman','557-6308 Lacinia Road San Bernardino ND 09289','(570) 873-7090')
+
+-- Orders 
+
+insert into "order" ( customer_id, order_date ) 
+select  floor(random()*(select max(customer_id) from customer)+(select min(customer_id) from customer)) customer_id, now()-interval '1 day'*random()*100 order_date from generate_series(1,100) tt 
+
+
+-- OrderDetail
+
+insert into order_detail ( order_id, product_id, price, amount) 
+select order_id, product_id, (select price from product where product_id=tbl.product_id) price, floor(random()*10+1) amount from (
+select distinct floor(random()*(select max(order_id) from "order")+(select min(order_id) from "order")) order_id, floor(random()*(select max(product_id) from product)+(select min(product_id) from product)) product_id from generate_series(1,2000) tt ) tbl  
+
+
+
+--------
+
+update customer set customer_address = '3015 Tecumsah Lane, Mansfield, Louisiana' where customer_name='Wade Harris';
+
+
+update customer set customer_address = '4939 Jones Avenue, Mount Airy, North Carolina', customer_phone='336-783-8578',customer_name='Mahatma Gandhi'  where customer_id=3;
+
+--------
+
+insert into customer ( customer_name, customer_address, customer_phone ) values
+('Elvis Bridley', 'P.O. Box 558 9561 Lacus. Road Laughlin Hawaii 99602', '(725) 342-0650'), 
+('Ryan Lawrance','4005 Praesent St. Torrance Wyoming 22767','(725) 757-4047'), 
+('Rose Lucas','New Address Of Rose Lucas','000000000')
+On conflict (customer_name)
+Do 
+	update set customer_address=EXCLUDED.customer_address, customer_phone=EXCLUDED.customer_phone;
+	
+	
+	
+-- returning 
+
+create table employee ( id serial primary key, name varchar(50), last_name varchar(50), address varchar(255), phone varchar(30), salary numeric);
+
+insert into employee (name, last_name, address, phone,salary) 
+values 
+('Jade','Jington','Some St Some State 00011','012-234-567',8700),
+('Clint','Hayword','Another St Another State 00012','123-456-789',8800),
+('Meryl','Cazale','Other St Other State 00013','234-567-890',9880),
+('Roberto','Brando','Yet Another St Yet Another State 00014','345-678-901',9700),
+('Anastasia','Blue','Different St Different State 00015','456-789-012',5020)
+
+delete from employee where id=3 returning *;
+
+insert into employee (name, last_name, address, phone,salary) 
+values 
+('Marilyn','Moore','After Delete St After Delete State 00000','000-000-567',8100)
+

@@ -1,0 +1,27 @@
+
+create table athletes (id serial primary key, name varchar(30), last_name varchar(30), age int not null, branch varchar(30) not null)
+
+alter table athletes add constraint  ex_athletes_01 exclude using gist(age with <>)
+
+insert into athletes ( name, last_name, age, branch) values ('Usain', 'Bolt', 35,'sprinter');
+
+insert into athletes ( name, last_name, age, branch) values ('Novak', 'Djokovic', 35,'tennis');
+
+insert into athletes ( name, last_name, age, branch) values ('Kevin', 'Durant', 33,'basketball');
+
+truncate table athletes;
+
+alter table athletes drop constraint ex_athletes_01;
+
+alter table athletes add constraint  ex_athletes_01 exclude using gist(age with =)
+
+
+create table class ( class_id int primary key, class_name varchar(30));
+
+
+create table grade (grade_id serial primary key, class_id int references class (class_id)  initially deferred, grade numeric);
+
+
+insert into class (class_id, class_name) values (1,'Math'), (2,'Physic');
+ 
+insert into grade (class_id, grade) values (1,80),(2,90); 

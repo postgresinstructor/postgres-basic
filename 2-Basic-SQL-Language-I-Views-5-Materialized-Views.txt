@@ -1,0 +1,25 @@
+
+create materialized view customer_order_details as 
+select c.customer_id, c.customer_name, o.order_date, co.company_name, p.product_name, od.amount, od.price
+from customer c join "order" o on c.customer_id = o.customer_id 
+join order_detail od on od.order_id = o.order_id 
+join product p on od.product_id = p.product_id
+join company co on p.company_id = co.company_id
+with no data;
+
+
+create materialized view company_mview as 
+select * from company 
+with data;
+
+select * from company_mview;
+
+insert into company (company_name) values ('Gucci');
+
+ refresh materialized view concurrently company_mview ;
+
+create unique index uq_company_mv_company_id on company_mview ( company_id);
+
+
+ refresh materialized view concurrently company_mview ;
+ 

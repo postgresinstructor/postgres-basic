@@ -1,0 +1,29 @@
+
+select 'Hello '||'This is a concatenated '||' string';
+
+select 1||' That first';
+
+
+select initcap('hAPPY eLEPHANT'), lower('HAPPY FOX'), upper('happy lion');
+
+select substring('What a wonderful life' from 8 for 10);
+
+select substring('What a wonderful life' from 8);
+
+select overlay('Life sucks' placing 'is beautiful' from 6 )
+
+select ascii('A');
+
+select chr(65);
+
+select repeat('white ',1000);
+
+select replace('somexxingonxxeworld','xx','th');
+
+select format('Dear Ms/Mr. %s ; Your grade is %s. %s You %s.','Anderson', 90, 'Congratulations', 'Won');
+
+---------------------
+
+select 'That is some Char'::char(5), 'That is some varchar'::varchar(10);
+
+select length('That'::char(10)), length('That'::varchar(10));

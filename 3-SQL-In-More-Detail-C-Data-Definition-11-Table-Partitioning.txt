@@ -1,0 +1,187 @@
+
+create table classical_workflow ( workflow_id bigint, parent_workflow_id bigint, manager_id int, employee_id int, workname varchar(50), start_date timestamp, approve_date timestamp);
+
+create table workflow ( workflow_id bigint, parent_workflow_id bigint, manager_id int, employee_id int, workname varchar(50), start_date timestamp, approve_date timestamp) partition by range (approve_date);
+
+
+create table workflow_before2022 partition of workflow for values from (MINVALUE) to ('2022-01-01');
+
+create table workflow_01_2022 partition of workflow for values from ('2022-01-01') to ('2022-02-01');
+create table workflow_02_2022 partition of workflow for values from ('2022-02-01') to ('2022-03-01');
+create table workflow_03_2022 partition of workflow for values from ('2022-03-01') to ('2022-04-01');
+create table workflow_04_2022 partition of workflow for values from ('2022-04-01') to ('2022-05-01');
+create table workflow_05_2022 partition of workflow for values from ('2022-05-01') to ('2022-06-01');
+create table workflow_06_2022 partition of workflow for values from ('2022-06-01') to ('2022-07-01');
+create table workflow_07_2022 partition of workflow for values from ('2022-07-01') to ('2022-08-01');
+create table workflow_08_2022 partition of workflow for values from ('2022-08-01') to ('2022-09-01');
+create table workflow_09_2022 partition of workflow for values from ('2022-09-01') to ('2022-10-01');
+create table workflow_10_2022 partition of workflow for values from ('2022-10-01') to ('2022-11-01');
+create table workflow_11_2022 partition of workflow for values from ('2022-11-01') to ('2022-12-01');
+create table workflow_12_2022 partition of workflow for values from ('2022-12-01') to ('2023-01-01');
+
+create table workflow_default partition of workflow default with (parallel_workers=2) tablespace pg_default;
+
+create table workflow_2023 partition of workflow for values from ('2023-01-01') to ('2024-01-01') partition by range (approve_date);
+
+create table workflow_sub_01_2023 partition of workflow_2023 for values from ('2023-01-01') to ('2023-02-01'); 
+create table workflow_sub_02_2023 partition of workflow_2023 for values from ('2023-02-01') to ('2023-03-01'); 
+create table workflow_sub_03_2023 partition of workflow_2023 for values from ('2023-03-01') to ('2023-04-01'); 
+create table workflow_sub_04_2023 partition of workflow_2023 for values from ('2023-04-01') to (MAXVALUE); 
+
+drop table workflow_sub_04_2023; 
+
+alter table workflow_2023 detach partition workflow_sub_03_2023;
+
+alter table workflow_2023 attach partition workflow_sub_03_2023 for values from ('2023-03-01') to ('2023-04-01'); 
+
+create index ind_workflow_approve_date on workflow (approve_date);
+
+\d workflow 
+
+\d workflow_01_2022
+
+
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (1,null,1,101,'Office Edit','2022-01-01 10:09:01', '2022-01-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (2,null,2,101,'Office Edit','2022-01-02 10:09:01', '2022-01-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (3,null,3,101,'Office Edit','2022-01-03 10:09:01', '2022-01-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (4,null,4,101,'Office Edit','2022-02-01 10:09:01', '2022-02-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (5,3,1,101,'Office Edit','2022-02-02 10:09:01', '2022-02-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (6,5,2,101,'Office Edit','2022-02-03 10:09:01', '2022-02-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (7,6,3,101,'Office Edit','2022-03-01 10:09:01', '2022-03-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (8,null,1,101,'Office Edit','2022-03-02 10:09:01', '2022-02-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (9,null,2,101,'Office Edit','2022-03-03 10:09:01', '2022-03-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (10,null,1,101,'Office Edit','2022-04-01 10:09:01', '2022-04-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (11,10,2,101,'Office Edit','2022-04-02 10:09:01', '2022-04-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (12,11,3,101,'Office Edit','2022-04-03 10:09:01', '2022-04-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (13,12,4,101,'Office Edit','2022-05-01 10:09:01', '2022-05-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (14,13,5,101,'Office Edit','2022-05-02 10:09:01', '2022-05-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (15,14,6,101,'Office Edit','2022-05-03 10:09:01', '2022-05-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (16,15,7,101,'Office Edit','2022-06-07 10:09:01', '2022-06-07 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (17,16,8,101,'Office Edit','2022-06-08 10:09:01', '2022-06-08 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (18,17,9,101,'Office Edit','2022-06-09 10:09:01', '2022-06-09 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (19,18,10,101,'Office Edit','2022-06-10 10:09:01', '2022-06-10 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (20,null,1,101,'Office Edit','2022-06-11 10:09:01', '2022-06-11 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (21,20,2,101,'Office Edit','2022-06-16 10:09:01', '2022-06-16 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (22,21,3,101,'Office Edit','2022-07-01 10:09:01', '2022-07-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (23,22,4,101,'Office Edit','2022-07-02 10:09:01', '2022-07-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (24,23,5,101,'Office Edit','2022-07-03 10:09:01', '2022-07-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (25,null,1,101,'Office Edit','2022-07-04 10:09:01', '2022-07-04 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (26,null,2,101,'Office Edit','2022-07-05 10:09:01', '2022-07-05 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (27,26,1,101,'Office Edit','2022-08-01 10:09:01', '2022-08-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (28,27,11,101,'Office Edit','2022-08-02 10:09:01', '2022-08-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (29,28,13,101,'Office Edit','2022-08-03 10:09:01', '2022-08-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (30,29,14,101,'Office Edit','2022-08-04 10:09:01', '2022-08-04 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (31,null,1,101,'Office Edit','2022-08-05 10:09:01', '2022-08-05 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (32,31,1,101,'Office Edit','2022-08-06 10:09:01', '2022-08-06 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (33,32,1,111,'Office Edit','2022-09-01 10:09:01', '2022-09-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (34,33,1,121,'Office Edit','2022-09-02 10:09:01', '2022-09-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (35,34,1,141,'Office Edit','2022-09-03 10:09:01', '2022-09-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (36,null,1,101,'Office Edit','2022-09-04 10:09:01', '2022-09-04 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (37,36,1,101,'Office Edit','2022-10-01 10:09:01', '2022-10-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (38,37,1,102,'Office Edit','2022-10-02 10:09:01', '2022-10-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (39,38,1,103,'Office Edit','2022-10-03 10:09:01', '2022-10-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (40,null,1,101,'Office Edit','2022-10-04 10:09:01', '2022-10-04 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (41,40,1,101,'Office Edit','2022-10-05 10:09:01', '2022-10-05 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (42,41,1,102,'Office Edit','2022-11-01 10:09:01', '2022-11-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (43,42,1,103,'Office Edit','2022-11-02 10:09:01', '2022-11-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (44,43,1,104,'Office Edit','2022-11-03 10:09:01', '2022-11-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (45,44,1,105,'Office Edit','2022-11-04 10:09:01', '2022-11-04 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (46,null,1,101,'Office Edit','2022-12-01 10:09:01', '2022-12-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (47,46,1,101,'Office Edit','2022-12-02 10:09:01', '2022-12-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (48,47,2,101,'Office Edit','2022-12-03 10:09:01', '2022-12-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (49,48,3,101,'Office Edit','2022-12-04 10:09:01', '2022-12-04 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (50,49,4,101,'Office Edit','2022-12-05 10:09:01', '2022-12-05 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (51,50,5,101,'Office Edit','2022-12-06 10:09:01', '2022-12-06 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (52,51,6,101,'Office Edit','2023-01-01 10:09:01', '2023-01-01 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (53,null,1,101,'Office Edit','2023-01-02 10:09:01', '2023-01-02 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (54,53,1,101,'Office Edit','2023-01-03 10:09:01', '2023-01-03 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (55,54,2,101,'Office Edit','2023-01-04 10:09:01', '2023-01-04 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (56,55,3,101,'Office Edit','2023-01-05 10:09:01', '2023-01-05 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (57,56,4,101,'Office Edit','2023-02-06 10:09:01', '2023-02-06 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (58,57,5,101,'Office Edit','2023-02-07 10:09:01', '2023-02-07 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (59,null,1,101,'Office Edit','2023-02-08 10:09:01', '2023-02-08 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (60,null,2,101,'Office Edit','2023-02-09 10:09:01', '2023-02-09 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (61,null,3,101,'Office Edit','2023-02-10 10:09:01', '2023-02-10 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (62,61,1,101,'Office Edit','2023-02-11 10:09:01', '2023-02-11 11:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (63,62,2,101,'Office Edit','2022-06-01 10:09:01', null);
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (64,63,3,101,'Office Edit','2022-06-02 10:09:01',  null);
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (65,64,4,101,'Office Edit','2022-06-03 10:09:01',  null);
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (66,65,5,101,'Office Edit','2022-06-04 10:09:01',  null);
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (67,null,1,101,'Office Edit','2022-06-05 10:09:01',  null);
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (68,67,1,101,'Office Edit','2022-06-06 10:09:01',  null);
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (69,null,11,111,'Office Edit','2022-01-01 20:09:01', '2022-01-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (70,69,12,112,'Office Edit','2022-02-01 20:09:01', '2022-02-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (71,null,1,101,'Office Edit','2022-03-01 20:09:01', '2022-03-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (72,71,12,101,'Office Edit','2022-04-01 20:09:01', '2022-04-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (73,72,13,101,'Office Edit','2022-05-01 20:09:01', '2022-05-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (74,73,1,111,'Office Edit','2022-06-01 20:09:01', '2022-06-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (75,null,1,121,'Office Edit','2022-07-01 20:09:01', '2022-07-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (76,75,2,101,'Office Edit','2022-08-01 20:09:01', '2022-08-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (77,76,3,101,'Office Edit','2022-09-01 20:09:01', '2022-09-01 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (78,77,4,101,'Office Edit','2022-10-01 20:09:01', '2022-10-01 21:09:01');
+
+select * from workflow;
+
+select tableoid, * from workflow;
+
+select tableoid::regclass, * from workflow;
+
+alter table workflow add constraint pk_workflow primary key (workflow_id);
+
+alter table workflow add constraint pk_workflow primary key (workflow_id, approve_date);
+
+alter table workflow add constraint pk_workflow unique (workflow_id, approve_date);
+
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (79,1,4,101,'Office Edit','2022-10-21 20:09:01', '2022-10-21 21:09:01');
+insert into workflow ( workflow_id, parent_workflow_id, manager_id, employee_id, workname, start_date, approve_date) values (79,2,4,101,'Office Edit','2022-10-22 20:09:01', '2022-10-22 21:09:01');
+
+create index ind_workflow_employee_start_date on only workflow ( employee_id, start_date);
+
+SELECT oid, relname,pg_index.indisvalid FROM pg_class, pg_index WHERE relname='ind_workflow_employee_start_date' AND pg_index.indexrelid = pg_class.oid;
+
+SELECT 'create index concurrently ind_'||child.relname||'emp_start on '||child.relname||'(employee_id, start_date);'
+FROM pg_inherits
+    JOIN pg_class parent            ON pg_inherits.inhparent = parent.oid
+    JOIN pg_class child             ON pg_inherits.inhrelid   = child.oid
+WHERE parent.relname='workflow';
+
+ create index concurrently ind_workflow_before2022emp_start on workflow_before2022(employee_id, start_date);
+ create index concurrently ind_workflow_01_2022emp_start on workflow_01_2022(employee_id, start_date);
+ create index concurrently ind_workflow_02_2022emp_start on workflow_02_2022(employee_id, start_date);
+ create index concurrently ind_workflow_03_2022emp_start on workflow_03_2022(employee_id, start_date);
+ create index concurrently ind_workflow_04_2022emp_start on workflow_04_2022(employee_id, start_date);
+ create index concurrently ind_workflow_05_2022emp_start on workflow_05_2022(employee_id, start_date);
+ create index concurrently ind_workflow_06_2022emp_start on workflow_06_2022(employee_id, start_date);
+ create index concurrently ind_workflow_07_2022emp_start on workflow_07_2022(employee_id, start_date);
+ create index concurrently ind_workflow_08_2022emp_start on workflow_08_2022(employee_id, start_date);
+ create index concurrently ind_workflow_09_2022emp_start on workflow_09_2022(employee_id, start_date);
+ create index concurrently ind_workflow_10_2022emp_start on workflow_10_2022(employee_id, start_date);
+ create index concurrently ind_workflow_11_2022emp_start on workflow_11_2022(employee_id, start_date);
+ create index concurrently ind_workflow_12_2022emp_start on workflow_12_2022(employee_id, start_date);
+ create index concurrently ind_workflow_defaultemp_start on workflow_default(employee_id, start_date);
+ create index  ind_workflow_2023emp_start on workflow_2023(employee_id, start_date);
+
+SELECT 'alter index ind_workflow_employee_start_date attach partition ind_'||child.relname||'emp_start;'
+FROM pg_inherits
+    JOIN pg_class parent            ON pg_inherits.inhparent = parent.oid
+    JOIN pg_class child             ON pg_inherits.inhrelid   = child.oid
+WHERE parent.relname='workflow';
+
+alter index ind_workflow_employee_start_date attach partition ind_workflow_before2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_01_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_02_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_03_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_04_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_05_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_06_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_07_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_08_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_09_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_10_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_11_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_12_2022emp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_defaultemp_start;
+alter index ind_workflow_employee_start_date attach partition ind_workflow_2023emp_start;
+
+
+SELECT oid, relname,pg_index.indisvalid FROM pg_class, pg_index WHERE relname='ind_workflow_employee_start_date' AND pg_index.indexrelid = pg_class.oid;

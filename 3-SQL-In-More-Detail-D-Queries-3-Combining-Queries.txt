@@ -1,0 +1,41 @@
+
+create table iron_producers ( country_name varchar(30), procurement_amount_tonx1000 numeric);
+
+create table steel_producers ( country_name varchar(30), procurement_amount_tonx1000 numeric);
+
+
+insert into iron_producers ( country_name, procurement_amount_tonx1000) values 
+('Australia', 930000), ('Brazil',480000), ('China',350000), ('India',210000), ('Russia',99000), ('South Africa',77000), ('Ukraine',62000), ('Canada',54000), ('United States',48000), 
+('Kazakhistan',43000), ('Iran',38000), ('Sweeden', 37000), ('Mexico', 23000), ('Peru',15000)
+
+insert into steel_producers ( country_name, procurement_amount_tonx1000) values 
+('China',1032000),('India',118000),('Japan',96000),('United States',85000),('Russia',75000),('South Korea',70000),('Turkey',40000),('Germany',40000),
+('Brazil',36000),('Iran',28000),('Italy',24000),('Taiwan',23000),('Ukraine',21000),('Mexico',18000);
+
+select country_name from iron_producers
+union 
+select country_name from steel_producers;
+
+select country_name from iron_producers
+union all
+select country_name from steel_producers;
+
+select country_name from iron_producers
+union all
+select country_name from steel_producers order by 1;
+
+
+select country_name from iron_producers
+intersect
+select country_name from steel_producers order by 1;
+
+select country_name from iron_producers
+except 
+select country_name from steel_producers order by 1;
+
+root=> select * from student
+root-> union
+root-> select * from employee;
+ERROR:  each UNION query must have the same number of columns
+LINE 3: select * from employee;
+               ^

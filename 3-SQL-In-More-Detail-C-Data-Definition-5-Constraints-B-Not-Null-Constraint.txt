@@ -1,0 +1,15 @@
+
+create table not_null_table (id serial not null, name varchar(30) not null, last_name varchar(30) not null);
+
+insert into not_null_table (name, last_name) values ( null, 'john');
+
+insert into not_null_table (name, last_name) values ( 'Lucky', 'john');
+
+
+create table new_product (id serial not null, product_name varchar(50) not null, price numeric check(price >0));
+
+insert into new_product (product_name, price) values ('sugar',null);
+
+ alter table new_product alter column price set not null;
+ 
+delete from new_product where price is null;

@@ -1,0 +1,35 @@
+
+create table product (product_id serial primary key, company_id bigint, product_name varchar(255), price numeric);
+
+create table company ( company_id serial primary key, company_name varchar(255)) ;
+
+create table customer ( customer_id serial primary key, customer_name varchar(255), customer_address varchar(255), customer_phone varchar(30));
+
+--ilk seferde 
+create table order ( order_id serial primary key, customer_id bigint, order_date timestamp);
+
+create table "order" ( order_id serial primary key, customer_id bigint, order_date timestamp);
+
+create table order_detail ( order_id bigint, product_id bigint, price numeric, amount numeric, primary key (order_id, product_id));
+
+create table some_misnamed_table ( id serial primary key, column1 varchar(10), column2 numeric, column3 timestamp);
+
+alter table product add constraint fk_product_company_id foreign key   (company_id) references company ( company_id ) ;
+
+alter table "order" add constraint fk_order_customer_id foreign key   (customer_id) references customer ( customer_id ) ;
+
+alter table order_detail add constraint fk_order_detail_order_id foreign key   (order_id ) references "order" ( order_id ) ;
+
+alter table order_detail add constraint fk_order_detail_product_id foreign key   (product_id ) references product ( product_id ) ;
+
+
+
+--- 
+
+alter table some_misnamed_table rename to correctly_named_table;
+
+drop table product cascade;
+drop table "order" cascade;
+drop table order_detail cascade;
+drop table Company cascade;
+drop table Customer cascade;

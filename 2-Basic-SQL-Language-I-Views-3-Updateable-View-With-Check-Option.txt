@@ -1,0 +1,12 @@
+
+create or replace view product_view as select company_id, product_id, product_name, price from product where price <50 with check option;
+
+insert into product_view (company_id, product_name, price) values (1, 'SOME EXPENSIVE DRESS', 101);
+
+create or replace view product_view as select company_id, product_id, product_name, price from product where price <50 ;
+
+create view zara_products as select * from product_view where company_id = 1 with cascaded check option;
+
+insert into zara_products (company_id, product_name, price) values (1, 'ZARA NEW FASHION DRESS',60);
+
+insert into zara_products (company_id, product_name, price) values (1, 'ZARA NEW FASHION DRESS',49);

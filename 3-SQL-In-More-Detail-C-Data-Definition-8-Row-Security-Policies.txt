@@ -1,0 +1,36 @@
+
+
+create table employee_secret (id serial primary key, user_name varchar(30) unique, passwd varchar(255), salary bigint);
+
+insert into employee_secret (user_name, passwd, salary) values ('admin', '1kkaslldjjf29mmsdfnsdmfnsömfdnsdömoısdfoı34234oı32opusedfjskfjslknmö', 9000);
+
+insert into employee_secret (user_name, passwd, salary) values ('eric', '1kkaslldjjf29mmsdfnsdmfnsömfdnsdöm23sdfoı34234oı32opusedfjskfjslknmö', 8700);
+
+insert into employee_secret (user_name, passwd, salary) values ('john', '1kkaslldjjf29mmsdfnsdmfnsömfdnsdö24ısdfoı34234oı32opusedfjskfjslknmö', 8800);
+
+
+create user admin with password 'admin'; 
+
+create user eric with password 'eric';
+
+create user john with password 'john';
+
+---------------
+
+grant select,update,insert,delete on employee_secret to admin, eric, john;
+
+alter table employee_secret enable row level security;
+
+create policy employee_control on employee_secret using (user_name=current_user);
+
+set role eric;
+
+select * from employee_secret;
+
+set role admin;
+
+select * from employee_secret;
+
+update employee_secret set salary = 10000 where user_name='eric';
+
+create policy admin_control on employee_secret to admin using (true);

@@ -1,0 +1,8 @@
+
+create table some_money (col1 money);
+
+insert into some_money (col1) values (12),(12.02),('$1,000,000.09');
+
+select 12.23::float::money;
+
+select 12.23::float::numeric::money;

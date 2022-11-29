@@ -1,0 +1,5 @@
+
+select d.department_id, d.department_name, count(1) employee_count 
+from department d left join employee e on d.department_id = e.department_id 
+group by d.department_id, d.department_name
+having count(1)<5;

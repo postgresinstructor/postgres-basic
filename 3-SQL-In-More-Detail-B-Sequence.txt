@@ -1,0 +1,53 @@
+
+create sequence seq_first;
+
+
+create sequence seq_first 
+AS bigint
+increment by 1
+NO MINVALUE
+NO MAXVALUE
+start with 1
+no cycle;
+
+
+select nextval('seq_first');
+
+select currval('seq_first');
+
+create sequence seq_second cache 25;
+
+select nextval('seq_second');
+1
+select nextval('seq_second');
+26
+select nextval('seq_second');
+51
+
+create sequence seq_with_recycle increment by -1 minvalue -3 maxvalue -1 cycle;
+
+select nextval('seq_with_recycle');
+
+create sequence test_sequence;
+
+select nextval('test_sequence');
+
+begin;
+
+ update employee set salary = salary * 2;
+ 
+ select nextval('test_sequence');
+ 
+ select nextval('test_sequence');
+ 
+ select nextval('test_sequence');
+ 
+ select nextval('test_sequence');
+ 
+ select nextval('test_sequence');
+ 
+ select nextval('test_sequence');
+ 
+rollback;
+
+end;

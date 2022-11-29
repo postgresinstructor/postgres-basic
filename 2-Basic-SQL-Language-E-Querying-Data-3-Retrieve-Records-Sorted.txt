@@ -1,0 +1,12 @@
+
+select * from student order by name;
+
+select * from student order by last_name;
+
+select * from olympics_2004 order by gold ;
+ 
+select * from olympics_2004 order by gold asc;
+
+select * from olympics_2004 order by gold desc;
+
+select * from olympics_2004 order by gold desc nulls last, country;

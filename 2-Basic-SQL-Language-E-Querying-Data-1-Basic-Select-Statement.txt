@@ -1,0 +1,105 @@
+
+select * from employee;
+
+select name, last_name, salary from employee;
+
+ select * from employee where salary > 9000;
+ 
+select * from product;
+
+select * from product where price > 40 and company_id in (1,3,5);
+
+select * from product where price > 40 or company_id in (1,3,5);
+
+ select * from product where (company_id=1 and price<40) or (company_id=2 and price>25);
+ 
+ 
+-----
+
+create table olympics_2004 (rank int, country varchar(100), gold numeric, silver numeric, bronze numeric);
+
+
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (1,' United States',36,39,26);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (2,' China',32,17,14);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (3,' Russia',28,26,36);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (4,' Australia',17,16,17);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (5,' Japan',16,9,12);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (6,' Germany',13,16,20);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (7,' France',11,9,13);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (8,' Italy',10,11,11);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (9,' South Korea',9,12,9);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (10,' Great Britain',9,9,12);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (11,' Cuba',9,7,11);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (12,' Hungary',8,6,3);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (13,' Ukraine',8,5,9);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (14,' Romania',8,5,6);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (15,' Greece*',6,6,4);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (16,' Brazil',5,2,3);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (17,' Norway',5,null,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (18,' Netherlands',4,9,9);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (19,' Sweden',4,2,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (20,' Spain',3,11,6);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (21,' Canada',3,6,3);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (22,' Turkey',3,3,5);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (23,' Poland',3,2,5);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (24,' New Zealand',3,2,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (25,' Thailand',3,1,4);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (26,' Belarus',2,5,6);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (27,' Austria',2,4,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (28,' Ethiopia',2,3,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (29,' Iran',2,2,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (29,' Slovakia',2,2,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (31,' Chinese Taipei',2,2,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (32,' Georgia',2,2,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (33,' Bulgaria',2,1,9);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (34,' Denmark',2,1,5);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (35,' Jamaica',2,1,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (35,' Uzbekistan',2,1,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (37,' Morocco',2,1,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (38,' Argentina',2,null,4);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (39,' Chile',2,null,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (40,' Kazakhstan',1,4,3);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (41,' Kenya',1,4,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (42,' Czech Republic',1,3,5);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (43,' South Africa',1,3,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (44,' Croatia',1,2,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (45,' Lithuania',1,2,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (46,' Egypt',1,1,3);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (46,' Switzerland',1,1,3);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (48,' Indonesia',1,1,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (49,' Zimbabwe',1,1,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (50,' Azerbaijan',1,null,4);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (51,' Belgium',1,null,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (52,' Bahamas',1,null,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (52,' Israel',1,null,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (54,' Cameroon',1,null,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (54,' Dominican Republic',1,null,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (54,' United Arab Emirates',1,null,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (57,' North Korea',null,4,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (58,' Latvia',null,4,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (59,' Mexico',null,3,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (60,' Portugal',null,2,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (61,' Finland',null,2,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (61,' Serbia and Montenegro',null,2,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (63,' Slovenia',null,1,3);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (64,' Estonia',null,1,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (65,' Hong Kong',null,1,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (65,' India',null,1,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (65,' Paraguay',null,1,null);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (68,' Colombia',null,null,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (68,' Nigeria',null,null,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (68,' Venezuela',null,null,2);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (71,' Eritrea',null,null,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (71,' Mongolia',null,null,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (71,' Syria',null,null,1);
+insert into olympics_2004 (rank, country,gold,silver,bronze) values (71,' Trinidad and Tobago',null,null,1);
+
+
+
+ select * from olympics_2004 where bronze = null;
+
+
+select * from olympics_2004 where bronze is null;
+
+select * from olympics_2004 where gold between 3 and 6;
+

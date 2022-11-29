@@ -1,0 +1,8 @@
+
+select c.company_name, p.product_name, p.price  from company c inner join product p on p.company_id = c.company_id where c.company_name='Zara';
+
+select c.company_name, cu.customer_name, p.product_name, p.price, od.amount, o.order_date from company c join product p on c.company_id = p.company_id join order_detail od on od.product_id = p.product_id join "order" o on od.order_id = o.order_id join customer cu on cu.customer_id = o.customer_id where c.company_name='Zara';
+
+select c.company_name, cu.customer_name, p.product_name, p.price, od.amount, o.order_date from company c join product p on c.company_id = p.company_id join order_detail od on od.product_id = p.product_id join "order" o on od.order_id = o.order_id join customer cu on cu.customer_id = o.customer_id where c.company_name='Zara' order by cu.customer_name, o.order_date;
+
+select c.company_name, cu.customer_name, p.product_name, p.price, od.amount, o.order_date from company c join product p on c.company_id = p.company_id join order_detail od on od.product_id = p.product_id join "order" o on od.order_id = o.order_id join customer cu on cu.customer_id = o.customer_id where c.company_name='Zara' order by od.amount desc fetch first 5 row only;

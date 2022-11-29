@@ -1,0 +1,162 @@
+
+drop table if exists employee;
+
+insert into employee (name, last_name, address, phone,salary,department_id) 
+values 
+('Jade','Jington','Some St Some State 00011','012-234-567',8700,1),
+('Clint','Hayword','Another St Another State 00012','123-456-789',8800,2),
+('Meryl','Cazale','Other St Other State 00013','234-567-890',9880,2),
+('Roberto','Brando','Yet Another St Yet Another State 00014','345-678-901',9700,4),
+('Kings','Verde','Different St Different State 00015','456-789-012',5020,5),
+('Steer','Opphen','One St Torn State 00016','456-787-012',6520,1),
+('Star','Lewin','Two St Adam State 00017','456-786-012',5520,3),
+('Poli','Walter','Three St Babylon State 00018','456-785-012',5920,3),
+('Kony','Works','Four St Eden State 00019','456-784-012',10000,4),
+('Leadth','Letcher','White St Peacock State 00020','456-783-012',11020,4),
+('Mora','Butcher','Red St Apple State 00021','456-782-012',9020,1),
+('Lora','King','Green St Quick State 00022','456-781-012',8820,2),
+('David','Plus','Blue St Brand State 00023','456-780-012',9920,3),
+('John','Bloom','Brown St Keepwalker State 00024','456-789-912',11020,4),
+('Kriss','Kentacky','Cherry St Tate State 00025','456-789-812',7720,4),
+('Emily','Kansas','Strawberry St Neset State 00026','456-789-712',6670,3),
+('Ema','Rainbow','Blueberry St Notebook State 00027','456-789-612',9820,2),
+('Susan','Soyle','Raspberry St Pink State 00028','456-789-512',9870,3),
+('Meryl','Pitt','Knight St Block State 00029','456-789-412',7890,4),
+('Keanu','Kwas','Black St Justice State 00030','456-789-312',8860,5),
+('Steve','Hugman','Crossian St Speed State 00031','456-789-212',9970,3),
+('Patrick','Prince','Camel St Acceleration State 00032','456-789-112',1220,2),
+('Aly','Turqouise','Merit St Aim State 00033','456-719-012',9320,3),
+('Jack','Slim','Lemme St Clerence State 00034','346-739-012',8320,5),
+('Yakashi','Mako','Gimme St Anew State 00035','126-789-012',8870,5)
+
+
+select d.department_name, (select avg(salary) from employee e where d.department_id = e.department_id)
+from department d;
+
+
+select * from company c where exists(select 1 from employee);
+
+Select * from department d where exists ( select 1 from employee e where e.department_id = d.department_id and e.salary > 9000);
+
+Select * from department d where exists ( select e.id from employee e where e.department_id = d.department_id and e.salary > 9000);
+ 
+Select * from department d where exists ( select 'just a text' from employee e where e.department_id = d.department_id and e.salary > 9000);
+
+Select * from department d where not exists ( select 'just a text' from employee e where e.department_id = d.department_id and e.salary > 9000);
+
+Select * from department d where d.department_id in ( select e.department_id from employee e where e.salary > 9000);
+
+Select * from department d where d.department_id not in ( select e.department_id from employee e where e.salary > 9000);
+
+select * from department d where d.department_id=any ( select e.department_id from employee e where e.salary > 9000);
+
+select e.*,winners.prize from employee e inner join (values (819203,50000), (819205,40000), ( 819209, 90000)) as winners(employee_id, prize)  on e.id = winners.employee_id  
+
+
+
+create table countries (country_id int primary key, country_name varchar(50));
+
+insert into countries (country_id, country_name) values (1,'Canada');
+insert into countries (country_id, country_name) values (2,'India');
+insert into countries (country_id, country_name) values (3,'Australia');
+insert into countries (country_id, country_name) values (4,'Turkey');
+insert into countries (country_id, country_name) values (5,'Nepal');
+insert into countries (country_id, country_name) values (6,'United States of America');
+insert into countries (country_id, country_name) values (7,'Bangladesh');
+insert into countries (country_id, country_name) values (8,'China');
+insert into countries (country_id, country_name) values (9,'Ethiopia');
+insert into countries (country_id, country_name) values (10,'Russian Federation');
+insert into countries (country_id, country_name) values (11,'Syria');
+insert into countries (country_id, country_name) values (12,'France');
+insert into countries (country_id, country_name) values (13,'Pakistan');
+insert into countries (country_id, country_name) values (14,'Ukraine');
+insert into countries (country_id, country_name) values (15,'Germany');
+insert into countries (country_id, country_name) values (16,'Indonesia');
+insert into countries (country_id, country_name) values (17,'Vietnam');
+insert into countries (country_id, country_name) values (18,'Myanmar');
+insert into countries (country_id, country_name) values (19,'Thailand');
+insert into countries (country_id, country_name) values (20,'Philippines');
+insert into countries (country_id, country_name) values (21,'Brazil');
+
+
+
+create table procurement (country_id int, product_id int, amount_ton numeric, primary key(country_id, product_id));
+
+create table products ( product_id int primary key, product_name varchar(50));
+
+insert into products (product_id, product_name) values (1, 'Lentil');
+insert into products (product_id, product_name) values (2, 'Wheat');
+insert into products (product_id, product_name) values (3, 'Rice');
+
+insert into procurement (country_id, product_id, amount_ton) values (1,1,2166900);
+insert into procurement (country_id, product_id, amount_ton) values (2,1,1227820);
+insert into procurement (country_id, product_id, amount_ton) values (3,1,533755);
+insert into procurement (country_id, product_id, amount_ton) values (4,1,353631);
+insert into procurement (country_id, product_id, amount_ton) values (5,1,251185);
+insert into procurement (country_id, product_id, amount_ton) values (6,1,244400);
+insert into procurement (country_id, product_id, amount_ton) values (7,1,175384);
+insert into procurement (country_id, product_id, amount_ton) values (8,1,164239);
+insert into procurement (country_id, product_id, amount_ton) values (9,1,119329);
+insert into procurement (country_id, product_id, amount_ton) values (10,1,116618);
+insert into procurement (country_id, product_id, amount_ton) values (11,1,100653);
+
+
+insert into procurement (country_id, product_id, amount_ton) values (8 ,2,134254710);
+insert into procurement (country_id, product_id, amount_ton) values (2 ,2,107590000);
+insert into procurement (country_id, product_id, amount_ton) values (10 ,2,85896326);
+insert into procurement (country_id, product_id, amount_ton) values (6 ,2,49690680);
+insert into procurement (country_id, product_id, amount_ton) values (1 ,2,35183000);
+insert into procurement (country_id, product_id, amount_ton) values (12 ,2,30144110);
+insert into procurement (country_id, product_id, amount_ton) values (13 ,2,25247511);
+insert into procurement (country_id, product_id, amount_ton) values (14 ,2,24912350);
+insert into procurement (country_id, product_id, amount_ton) values (15 ,2,22172100);
+insert into procurement (country_id, product_id, amount_ton) values (4 ,2,20500000);
+
+
+insert into procurement (country_id, product_id, amount_ton) values (8,3,211090813);
+insert into procurement (country_id, product_id, amount_ton) values (2,3,158756871);
+insert into procurement (country_id, product_id, amount_ton) values (16,3,77297509);
+insert into procurement (country_id, product_id, amount_ton) values (7,3,52590000);
+insert into procurement (country_id, product_id, amount_ton) values (17,3,43437229);
+insert into procurement (country_id, product_id, amount_ton) values (18,3,25672832);
+insert into procurement (country_id, product_id, amount_ton) values (19,3,25267523);
+insert into procurement (country_id, product_id, amount_ton) values (20,3,17627245);
+insert into procurement (country_id, product_id, amount_ton) values (21,3,10622189);
+insert into procurement (country_id, product_id, amount_ton) values (13,3,10412155);
+insert into procurement (country_id, product_id, amount_ton) values (6,3,10167050);
+
+
+
+select p.product_name, t2.country_name, t2.amount_ton from products p, 
+	lateral (select c.country_name, p2.amount_ton from countries c 
+				join procurement p2 on c.country_id = p2.country_id 
+					and p.product_id = p2.product_id order by p2.amount_ton desc limit 3 ) t2 
+
+
+
+select t1.company_name, t2.customer_name, t2.customer_spending, t1.company_total from (
+select c.company_id, c.company_name,sum(od.price*od.amount) company_total 
+from company c join product p on c.company_id = p.company_id 
+	join order_detail od on od.product_id = p.product_id 
+group by c.company_id, c.company_name) t1 join 
+(select cu.customer_id, cu.customer_name, p.company_id, sum(od.price*od.amount) customer_spending 
+from customer cu join "order" o on cu.customer_id = o.customer_id 
+	join order_detail od on od.order_id = o.order_id
+	join product p on p.product_id = od.product_id 
+group by cu.customer_id, cu.customer_name, p.company_id ) t2 
+on t1.company_id = t2.company_id 
+order by company_name, company_total desc, customer_spending desc 
+	
+select t1.company_name, t2.customer_name, t2.customer_spending, t1.company_total from (
+select c.company_id, c.company_name,sum(od.price*od.amount) company_total 
+from company c join product p on c.company_id = p.company_id 
+	join order_detail od on od.product_id = p.product_id 
+group by c.company_id, c.company_name) t1, lateral 
+(select cu.customer_id, cu.customer_name, p.company_id, sum(od.price*od.amount) customer_spending 
+from customer cu join "order" o on cu.customer_id = o.customer_id 
+	join order_detail od on od.order_id = o.order_id
+	join product p on p.product_id = od.product_id and t1.company_id = p.company_id
+group by cu.customer_id, cu.customer_name, p.company_id 
+order by 4 desc limit 3) t2 
+order by company_name, company_total desc, customer_spending desc	
+	

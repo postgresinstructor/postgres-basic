@@ -1,0 +1,116 @@
+
+select c.company_name, cu.customer_name from company c join product p on c.company_id = p.company_id join order_detail od on od.product_id = p.product_id join "order" o on od.order_id = o.order_id join customer cu on cu.customer_id = o.customer_id where c.company_name='Zara' 
+
+select Distinct c.company_name, cu.customer_name from company c join product p on c.company_id = p.company_id join order_detail od on od.product_id = p.product_id join "order" o on od.order_id = o.order_id join customer cu on cu.customer_id = o.customer_id where c.company_name='Zara' 
+
+-------------------------------------------------------------
+
+
+create table continent (continent_id int primary key, continent_name varchar(100));
+
+create table olympics_2008 (rank int, country varchar(100) primary key, gold numeric, silver numeric, bronze numeric, continent_id int);
+
+alter table olympics_2008 add constraint fk_ol_2008_continent_id foreign key (continent_id) references continent (continent_id);
+
+insert into continent (continent_id, continent_name) values (1,'Africa'), (2,'Antarctica'),(3,'Asia'), (4,'Australia'), (5,'East America'), (6, 'Europe'), (7,'North America');
+
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (1,'China*',48,22,30, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (2,'United States',36,39,37, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (3,'Russia',24,13,23, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (4,'Great Britain',19,13,19, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (5,'Germany',16,11,14, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (6,'Australia',14,15,17, 4);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (7,'South Korea',13,11,8, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (8,'Japan',9,8,8, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (9,'Italy',8,9,10, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (10,'France',7,16,20, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (11,'Netherlands',7,5,4, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (12,'Ukraine',7,4,11, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (13,'Kenya',6,4,6, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (14,'Spain',5,11,3, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (15,'Jamaica',5,4,2, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (16,'Poland',4,5,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (17,'Ethiopia',4,2,1, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (18,'Romania',4,1,4, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (19,'Cuba',3,10,17, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (20,'Canada',3,9,8, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (21,'Hungary',3,5,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (22,'Norway',3,5,1, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (23,'Brazil',3,4,10, 5);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (24,'Belarus',3,4,7, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (25,'Czech Republic',3,3,1, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (26,'Slovakia',3,3,0, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (27,'New Zealand',3,2,4, 4);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (28,'Georgia',3,2,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (29,'Kazakhstan',2,3,4, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (30,'Denmark',2,2,3, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (31,'North Korea',2,2,2, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (31,'Thailand',2,2,2, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (33,'Mongolia',2,2,0, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (34,'Switzerland',2,1,4, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (35,'Argentina',2,0,4, 5);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (36,'Mexico',2,0,2, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (37,'Belgium',2,0,0, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (38,'Zimbabwe',1,3,0, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (39,'Slovenia',1,2,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (40,'Azerbaijan',1,1,4, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (40,'Indonesia',1,1,4, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (42,'Bulgaria',1,1,3, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (42,'Turkey',1,1,3, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (44,'Chinese Taipei',1,1,2, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (44,'Finland',1,1,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (46,'Latvia',1,1,1, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (47,'Dominican Republic',1,1,0, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (47,'Estonia',1,1,0, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (47,'Portugal',1,1,0, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (47,'Trinidad and Tobago',1,1,0, 5);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (51,'India',1,0,2, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (52,'Iran',1,0,1, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (53,'Cameroon',1,0,0, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (53,'Panama',1,0,0, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (53,'Tunisia',1,0,0, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (56,'Sweden',0,4,1, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (57,'Lithuania',0,3,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (57,'Nigeria',0,3,2, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (59,'Croatia',0,2,3, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (60,'Colombia',0,2,1, 5);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (60,'Greece',0,2,1, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (62,'Armenia',0,1,4, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (63,'Uzbekistan',0,1,3, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (64,'Austria',0,1,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (64,'Ireland',0,1,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (64,'Kyrgyzstan',0,1,2, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (64,'Serbia',0,1,2, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (68,'Algeria',0,1,1, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (68,'Bahamas',0,1,1, 7);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (68,'Morocco',0,1,1, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (68,'Tajikistan',0,1,1, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Chile',0,1,0, 5);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Ecuador',0,1,0, 5);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Iceland',0,1,0, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Malaysia',0,1,0, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Samoa',0,1,0, 4);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Singapore',0,1,0, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'South Africa',0,1,0, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Sudan',0,1,0, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (72,'Vietnam',0,1,0, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (81,'Egypt',0,0,2, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (82,'Afghanistan',0,0,1, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (82,'Israel',0,0,1, 3);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (82,'Mauritius',0,0,1, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (82,'Moldova',0,0,1, 6);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (82,'Togo',0,0,1, 1);
+insert into olympics_2008 (rank, country,gold,silver,bronze, continent_id) values (82,'Venezuela',0,0,1, 5);
+
+
+select c.continent_name,sum(gold) "Total Gold",avg(gold) Average_gold, min(gold) min_gold, max(gold) max_gold  from olympics_2008 o join continent c on o.continent_id = c.continent_id group by c.continent_name;
+
+select c.continent_id, c.continent_name,sum(gold) "Total Gold",avg(gold) Average_gold, min(gold) min_gold, max(gold) max_gold  from olympics_2008 o join continent c on o.continent_id = c.continent_id group by c.continent_name;
+ERROR:  column "c.continent_id" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: select c.continent_id, c.continent_name,sum(gold) "Total Gol...
+
+
+select o.gold, string_agg(o.country,',') countries from olympics_2008 o group by o.gold 
+
+select o.gold, string_agg(o.country,',' order by o.country) countries from olympics_2008 o group by o.gold ;
+

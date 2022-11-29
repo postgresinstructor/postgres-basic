@@ -1,0 +1,12 @@
+
+select * from olympics_2004 order by gold desc nulls last limit 10; 
+
+select * from olympics_2004 order by gold asc nulls last fetch first 5 row only;
+
+select * from olympics_2004 order by gold asc nulls last fetch first 5 row with ties;
+
+select * from olympics_2004 order by rank offset 0 fetch first 5 row only;
+
+select * from olympics_2004 order by rank offset 5 fetch first 5 row only;
+
+select * from olympics_2004 order by rank offset 10 fetch first 5 row only;

@@ -1,0 +1,37 @@
+
+
+create table balances (customer_id int,customer_name varchar(100), balance numeric);
+
+insert into balances (customer_id, customer_name, balance) values (1,'John', 1000), (2,'Mike', 200); 
+ 
+create table operations (sender int, receiver int, amount numeric, operation_date timestamp);
+
+update balances set balance = balance - 100 where customer_id = 1;
+
+insert into operations (sender, receiver, amount, operation_date) values (1,2,100,now());
+
+ select * from balances ;
+
+select * from operations ;
+
+
+update balances set balance = balance + 100 where customer_id = 2;
+
+
+commit;
+
+---
+
+select * from employee;
+
+begin;
+
+update employee set salary = salary * 1.2 ;
+
+ savepoint first_savepoint;
+ 
+  delete from employee;
+  
+  rollback to first_savepoint;
+
+end;

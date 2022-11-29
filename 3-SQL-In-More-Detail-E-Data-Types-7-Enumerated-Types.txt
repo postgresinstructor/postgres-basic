@@ -1,0 +1,15 @@
+
+create type levels as enum ('beginner', 'elementary', 'preintermediate', 'intermediate', 'upperintermediate','advanced');
+
+create table language_students(id serial primary key, name varchar(50), language varchar(50), level levels);
+
+insert into language_students( name, language, level) values ('John', 'Spanish', 'beginner'),
+('David', 'German', 'intermediate'), ('Serena','Italian','upperintermediate'),('Alishya', 'English', 'advanced'),('Lora', 'Chineese','preintermediate'),
+('Ken','japanese','elementary');
+
+select * from language_students where level>'elementary';
+
+select * from language_students order by level, name;
+
+insert into language_students( name, language, level) values ('Sebastian', 'Spanish', 'Beginner')
+

@@ -1,0 +1,21 @@
+
+
+create table users (id serial, name varchar(30), last_name varchar(30), birthdate timestamp check(birthdate>now()));
+
+create table users (id serial, name varchar(30), last_name varchar(30), birthdate timestamp,  check(birthdate>now()));
+
+create table users (id serial, name varchar(30), last_name varchar(30), birthdate timestamp,  constraint chk_users_01 check(birthdate>now()));
+
+create table users (id serial, name varchar(30), last_name varchar(30), birthdate timestamp);
+
+alter table users add constraint chk_users_01 check (birthdate>now());
+
+insert into users (name, last_name, birthdate) values ('Unborned','Child', '2030-01-01');
+
+alter table users drop constraint chk_users_01;
+
+alter table users add constraint chk_users_01 check (birthdate<now());
+
+insert into users (name, last_name, birthdate) values ('Another','Child', '2040-01-01');
+
+insert into users (name, last_name, birthdate) values ('Another','Child', '2000-01-01');

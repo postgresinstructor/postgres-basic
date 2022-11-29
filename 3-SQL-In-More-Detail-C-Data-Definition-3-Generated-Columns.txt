@@ -1,0 +1,12 @@
+
+create table example_list (id serial, product varchar(50), amount numeric, price numeric, total numeric generated always as (amount*price) stored, record_date timestamp default now());
+
+insert into example_list ( product, amount, price) values ('Cheesecake',2,1.35);
+insert into example_list ( product, amount, price) values ('Brownie',3,1.15);
+insert into example_list ( product, amount, price) values ('Apple Pie',1,5.25);
+
+
+-----------------------------------
+
+create table uncreatable_table (id serial, column1 numeric generated always as (random()*20) stored);
+

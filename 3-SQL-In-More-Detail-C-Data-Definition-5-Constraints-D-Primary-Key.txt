@@ -1,0 +1,8 @@
+
+Create table sample_table4 ( citizen_number int primary key, name varchar(30) not null, last_name varchar(30));
+
+insert into sample_table4 ( citizen_number, name, last_name) values (null, 'john', 'Doe');
+
+insert into sample_table4 ( citizen_number, name, last_name) values (1, 'john', 'Doe');
+
+insert into sample_table4 ( citizen_number, name, last_name) values (1, 'john', 'Doe');

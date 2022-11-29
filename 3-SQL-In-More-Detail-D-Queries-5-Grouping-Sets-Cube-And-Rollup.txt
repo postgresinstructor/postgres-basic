@@ -1,0 +1,23 @@
+
+create table country2 (country varchar(50), continent varchar(50), language varchar(30),has_nuclear_power boolean, primary key (country));
+
+insert into country2 (country, continent, language, has_nuclear_power) values 
+('Mexico','North America','Spanish', true),('Colombia','South America','Spanish', false),('Argentina','South America','Spanish', true),
+('Venezuela','South America','Spanish', false),('Cuba','North America','Spanish', false),('Paraguay','South America','Spanish',  false),
+('Spain','Europe','Spanish', true),('United States','North America','English', true),('United Kingdom','Europe','English', true),('Canada','North America','English', true),
+('Australia','Australia','English', false),('New Zealand','Australia','English', false),
+('Ireland','Europe','English', false),('Jamaica','North America','English', false),('Germany','Europe','German', true),('Austria','Europe','German', false),('Switzerland','Europe','German', true),
+('Belgium','Europe','German', true);
+
+select continent, language, has_nuclear_power, count(1) from country2 
+group by grouping sets ((continent, language),(continent, has_nuclear_power),());
+
+select continent, language, has_nuclear_power, string_agg(country,','), count(1) from country2 
+group by grouping sets ((continent, language),(continent, has_nuclear_power),());
+
+select continent, language, has_nuclear_power, string_agg(country,','), count(1) from country2 
+group by rollup(continent, language, has_nuclear_power);
+
+select continent, language, has_nuclear_power, string_agg(country,','), count(1) from country2 
+group by cube(continent, language, has_nuclear_power);
+

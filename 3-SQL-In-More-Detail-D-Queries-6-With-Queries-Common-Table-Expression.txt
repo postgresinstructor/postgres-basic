@@ -1,0 +1,41 @@
+
+With customer_total_spending as 
+(select cu.customer_id, cu.customer_name, c.company_id, sum(od.price*od.amount) total_spending 
+	from customer cu join "order" o on cu.customer_id = o.customer_id 
+	join order_detail od on o.order_id = od.order_id 
+	join product p on od.product_id = p.product_id 
+	join company c on p.company_id = c.company_id
+	group by cu.customer_id, cu.customer_name, c.company_id
+	)
+select * from customer_total_spending;
+
+
+With customer_total_spending as 
+(select cu.customer_id, cu.customer_name, p.company_id, sum(od.price*od.amount) total_spending 
+	from customer cu join "order" o on cu.customer_id = o.customer_id 
+	join order_detail od on o.order_id = od.order_id 
+	join product p on od.product_id = p.product_id
+	group by cu.customer_id, cu.customer_name, p.company_id
+	), 
+company_total_sales as (select c.company_id, c.company_name, sum(od.price*od.amount) total_sales
+	from company c join product p on c.company_id = p.company_id 
+		join order_detail od on od.product_id = p.product_id 
+		group by c.company_id, c.company_name
+)
+select t2.company_name, t1.customer_name, t1.total_spending, t2.total_sales from customer_total_spending t1 join company_total_sales t2 on t1.company_id = t2.company_id 
+where t1.total_spending = (select max(total_spending) from customer_total_spending cts where cts.company_id = t1.company_id);
+
+With customer_total_spending as not materialized 
+(select cu.customer_id, cu.customer_name, p.company_id, sum(od.price*od.amount) total_spending 
+	from customer cu join "order" o on cu.customer_id = o.customer_id 
+	join order_detail od on o.order_id = od.order_id 
+	join product p on od.product_id = p.product_id
+	group by cu.customer_id, cu.customer_name, p.company_id
+	), 
+company_total_sales as not materialized  (select c.company_id, c.company_name, sum(od.price*od.amount) total_sales
+	from company c join product p on c.company_id = p.company_id 
+		join order_detail od on od.product_id = p.product_id 
+		group by c.company_id, c.company_name
+)
+select t2.company_name, t1.customer_name, t1.total_spending, t2.total_sales from customer_total_spending t1 join company_total_sales t2 on t1.company_id = t2.company_id 
+where t1.total_spending = (select max(total_spending) from customer_total_spending cts where cts.company_id = t1.company_id);

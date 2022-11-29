@@ -1,0 +1,11 @@
+
+create table bool_test (col1 boolean, col2 boolean);
+
+insert into bool_test (col1, col2) values ('yes','no'),('on','off'),('1','0'),(true,false);
+
+select * from bool_test;
+
+ select 1!=null;
+ 
+ select 1 is distinct from null;
+ 

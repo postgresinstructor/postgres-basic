@@ -1,0 +1,24 @@
+
+alter table employee add column is_deleted boolean default false;
+ 
+ 
+alter table employee drop column is_deleted;
+
+alter table example_list alter column record_date set default '3000.01.01';
+
+insert into example_list (product, amount, price) values ('NewPie',100,1)
+
+select * from example_list;
+
+\d grade
+
+alter table grade alter column grade type varchar(30);
+
+\d grade 
+
+alter table grade rename column grade to result;
+
+\d grade 
+
+alter table sample_table3 rename to another_table_name;
+

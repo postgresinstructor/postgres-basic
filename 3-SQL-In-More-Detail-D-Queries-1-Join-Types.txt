@@ -1,0 +1,23 @@
+
+create table left_table ( connection_id int primary key, left_value varchar(10));
+
+create table right_table ( connection_id int primary key, right_value varchar(10));
+
+insert into left_table (connection_id, left_value) values (1,'a'),(3,'b'),(5,'c'),(7,'d');
+
+insert into right_table (connection_id, right_value) values (2,'x'),(3,'y'),(4,'z'),(5,'t');
+
+select * from left_table lt join right_table rt on lt.connection_id = rt.connection_id;
+
+select * from left_table lt, right_table rt 
+where lt.connection_id = rt.connection_id;
+
+select * from left_table lt left join right_table rt on lt.connection_id = rt.connection_id;
+
+select * from right_table lt left join left_table rt on lt.connection_id = rt.connection_id;
+
+select * from right_table lt full join left_table rt on lt.connection_id = rt.connection_id;
+
+select * from left_table lt join right_table rt using (connection_id)
+
+select * from left_table lt natural join right_table rt;

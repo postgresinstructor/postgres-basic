@@ -1,0 +1,37 @@
+
+create table array_test1 (id serial, array_col1 integer[]);
+
+insert into array_test1 ( array_col1) values (ARRAY[1,2,3]);
+
+insert into array_test1 ( array_col1) values ('{4,5,6}');
+
+select id, array_col1[1] from array_test1;
+
+create table array_test2(id serial, array_col2 text[][]);
+
+insert into array_test2(array_col2) values (ARRAY[['apple','apricot'],['cherry','coconout']]);
+
+select array_col2[1:2][1:1] from array_test2 ;
+
+select array_dims(ARRAY[1,2,3]);
+select array_dims(ARRAY[['apple','apricot'],['cherry','coconout']])
+
+select ARRAY[1,2]||ARRAY[3,4];
+
+select ARRAY[1,2]||3;
+
+create table student_array_test (id serial, name varchar(30), grades int[]);
+
+insert into student_array_test ( name, grades) values ('john',ARRAY[80,85,90]), ('Paul',ARRAY[70,75,80]),('Anjelika',ARRAY[85,95,90]),('Mari',ARRAY[85,85,85]);
+
+select * from student_array_test where 75 = any(grades);
+
+select * from student_array_test where 85 = all(grades);
+
+select * , array_position(array_col1,1) from array_test1
+
+select * from unnest(ARRAY[1,2,3,4]);
+
+select * from unnest(ARRAY[[1,2,3,4],[5,6,7,8]]);
+
+select * from unnest(ARRAY[1,2,3,4],ARRAY[5,6,7,8]) as x(a,b);

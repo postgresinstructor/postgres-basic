@@ -1,0 +1,50 @@
+
+
+drop table if exists employee ;
+
+create table department (department_id serial primary key, department_name varchar(100)); 
+
+insert into department ( department_name ) values ('HR');
+insert into department ( department_name ) values ('Development');
+insert into department ( department_name ) values ('Marketing');
+insert into department ( department_name ) values ('Operations');
+insert into department ( department_name ) values ('Sales');
+
+
+create table employee ( id serial primary key, name varchar(50), last_name varchar(50), address varchar(255), phone varchar(30), salary numeric, department_id int);
+
+alter table employee add constraint fk_employee_dept_id foreign key (department_id) references department (department_id);
+
+insert into employee (name, last_name, address, phone,salary,department_id) 
+values 
+('Jade','Jington','Some St Some State 00011','012-234-567',8700,1),
+('Clint','Hayword','Another St Another State 00012','123-456-789',8800,2),
+('Meryl','Cazale','Other St Other State 00013','234-567-890',9880,2),
+('Roberto','Brando','Yet Another St Yet Another State 00014','345-678-901',9700,4),
+('Kings','Verde','Different St Different State 00015','456-789-012',5020,5),
+('Steer','Opphen','One St Torn State 00016','456-787-012',6520,1),
+('Star','Lewin','Two St Adam State 00017','456-786-012',5520,3),
+('Poli','Walter','Three St Babylon State 00018','456-785-012',5920,3),
+('Kony','Works','Four St Eden State 00019','456-784-012',10000,4),
+('Leadth','Letcher','White St Peacock State 00020','456-783-012',11020,4),
+('Mora','Butcher','Red St Apple State 00021','456-782-012',9020,1),
+('Lora','King','Green St Quick State 00022','456-781-012',8820,2),
+('David','Plus','Blue St Brand State 00023','456-780-012',9920,3),
+('John','Bloom','Brown St Keepwalker State 00024','456-789-912',11020,4),
+('Kriss','Kentacky','Cherry St Tate State 00025','456-789-812',7720,4),
+('Emily','Kansas','Strawberry St Neset State 00026','456-789-712',6670,3),
+('Ema','Rainbow','Blueberry St Notebook State 00027','456-789-612',9820,2),
+('Susan','Soyle','Raspberry St Pink State 00028','456-789-512',9870,3),
+('Meryl','Pitt','Knight St Block State 00029','456-789-412',7890,4),
+('Keanu','Kwas','Black St Justice State 00030','456-789-312',8860,5),
+('Steve','Hugman','Crossian St Speed State 00031','456-789-212',9970,3),
+('Patrick','Prince','Camel St Acceleration State 00032','456-789-112',1220,2),
+('Aly','Turqouise','Merit St Aim State 00033','456-719-012',9320,3),
+('Jack','Slim','Lemme St Clerence State 00034','346-739-012',8320,5),
+('Yakashi','Mako','Gimme St Anew State 00035','126-789-012',8870,5)
+
+
+select e.name, e.last_name, e.salary, d.department_name, avg(salary) over (partition by d.department_name) "Average Salary By Dep", avg(salary) over () "Average Salary By All" from employee e join department d on e.department_id=d.department_id;
+
+select e.name, e.last_name, e.salary, d.department_name, avg(salary) over (partition by d.department_name) "Average Salary By Dep", avg(salary) over () "Average Salary By All", rank() over (partition by d.department_name order by salary desc) "Salary rank by department", rank() over(order by salary desc) "Salary rank by all"  from employee e join department d on e.department_id=d.department_id;
+

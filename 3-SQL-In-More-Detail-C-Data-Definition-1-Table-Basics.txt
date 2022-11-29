@@ -1,0 +1,8 @@
+
+create table example_list ( id serial, product varchar(100), amount numeric, price numeric, total numeric generated always as (amount*price) stored, record_date timestamp default now());
+
+insert into example_list (product, amount, price) values ('Apple Pie',2,2.5);
+insert into example_list (product, amount, price) values ('Brownie',3,1.75);
+insert into example_list (product, amount, price) values ('Hotdog',7,1.25);
+
+create table non_immutable_test (id serial, gen_column numeric generated always as (id*random()*20) stored);

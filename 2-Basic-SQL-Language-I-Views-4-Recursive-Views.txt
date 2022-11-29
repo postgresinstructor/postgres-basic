@@ -1,0 +1,14 @@
+
+
+create table settlements ( id int primary key, unit text, parent_id int);
+
+insert into settlements (id, unit, parent_id) values 
+(1,'USA',null),(2,'Arizona',1),(3,'Kansas',1),(4,'New York',1),
+(5,'Mohave',2),(6,'La Paz',2),(7,'Yavapi',2),(8,'Yuma',2),(9,'Santa Cruz',2),(10,'Apache',2),
+(11,'Greeley',3),(12,'Hamilton',3),(13,'Ford',3),(14,'Comanche',3),(15,'Elk',3),
+(16,'Orange',4),(17,'Ulster',4),(18,'Sullivan',4),(19,'Lewis',4)
+
+create recursive view settlements_view(id, unit, related_units) as 
+select id, unit, unit related_units from settlements where parent_id is null
+union all 
+select s.id, s.unit, p.related_units || '->'||s.unit from settlements s join settlements_view p on s.parent_id = p.id ;

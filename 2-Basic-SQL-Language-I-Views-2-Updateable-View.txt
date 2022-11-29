@@ -1,0 +1,9 @@
+
+
+create view product_view as select company_id, product_id, product_name, price from product;
+
+
+insert into product_view (company_id, product_name, price) values (1, 'SOME NEW DRESS', 11);
+
+delete from product_view  where product_id = 16;
+ 

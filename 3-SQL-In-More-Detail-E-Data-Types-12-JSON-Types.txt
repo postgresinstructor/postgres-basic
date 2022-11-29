@@ -1,0 +1,47 @@
+
+  select '1'::json;
+  
+  select '[1,2,3,4,null,5]'::json
+	
+  select '{"name":"Earth", "age":3000000000}'::json
+
+  select '{"country":"USA", "cities" : [ {"name":"Oregon", "population":1000000},{"name":"Los Angeles", "population":4000000} ]}'::json
+  
+SELECT '{"name":"Earth", "age":3000000000}'::jsonb @> '{"name":"Earth"}'::jsonb;  
+
+select '["apple","raspberry","cherry"]'::jsonb ? 'apple';
+
+select '{"name":"Anderson", "age":38}'::jsonb ? 'name';
+
+select '{"name":"Anderson", "age":38}'::jsonb ? 'Anderson';
+
+
+select '[{"temperature":35},{"humidity":60}]'::jsonb 
+
+select '[{"temperature":35},{"humidity":60}]'::jsonb ->1
+
+select '{"room":"big room","properties":[{"temperature":35},{"humidity":60}]}'::jsonb 
+
+select '{"room":"big room","properties":[{"temperature":35},{"humidity":60}]}'::jsonb->'room'
+
+select '{"room":"big room","properties":[{"temperature":35},{"humidity":60}]}'::jsonb->>'room'
+
+select '{"country":{"city":"Oregon"} }'::jsonb  
+
+select '{"country":{"city":"Oregon"} }'::jsonb  #> '{country,city}'
+
+select '{"room":"big room","properties":[{"temperature":35},{"humidity":60}]}'::jsonb #> '{properties,0}';
+
+select 'There is a "big" difference'::json ;
+
+select to_json('There is a "big" difference'::text) ;
+
+select jsonb_array_length('[{"temperature":35},{"humidity":60}]'::jsonb);
+
+select * from json_each('{"name":"Oregon","population":2000000,"area":178000}'::json);
+ 
+select * from json_object_keys('{"name":"Oregon","population":2000000,"area":178000}'::json);
+
+select * from json_populate_record(null, '{"name":"Oregon","population":2000000,"area":178000}')
+
+ select jsonb_pretty('{"name":"Oregon","population":2000000,"area":178000}');

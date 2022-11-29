@@ -1,0 +1,7 @@
+
+
+create table sample_table3 (id serial not null, name varchar(30), last_name varchar(30), unique (name,last_name));
+
+insert into sample_table3 (name, last_name) values ('Robin','Williams');
+
+insert into sample_table3 (name, last_name) values ('Robin','Williams');

@@ -1,0 +1,22 @@
+
+show bytea_output;
+
+select '\x10ABED90'::bytea 
+
+set bytea_output=escape
+
+select '\x10ABED90'::bytea ;
+
+set bytea_output=hex
+
+select '\020\253\355\220'::bytea 
+
+select '\x10ABED90'::bytea||'\x20ABFD90'::bytea
+
+select convert_to('That is a text', 'UTF8')
+
+select convert_from('\x5468617420697320612074657874', 'UTF8')
+
+select encode('\x5468617420697320612074657874', 'base64')
+
+select decode('VGhhdCBpcyBhIHRleHQ=','base64');

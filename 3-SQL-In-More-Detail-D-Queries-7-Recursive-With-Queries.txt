@@ -1,0 +1,61 @@
+
+with recursive simple_rec(n) as (
+select 1 
+union
+select n+1 from simple_rec where n<10)
+select n from simple_rec
+
+create table officers (id int primary key, name varchar(30), manager_id int, salary numeric);
+
+insert into officers (id, name, manager_id, salary) values 
+(1,'Adam', null,11000),
+(2,'John',1,10500),
+(3,'Melinda',1,10550),
+(4,'Jack',2,9900),
+(5,'Susan',2,9800),
+(6,'Karen',2,9780),
+(7,'Paul',3,9876),
+(8,'Ingrid',3,9880); 	
+
+with recursive rec1(id, name, manager, path)  as (
+	select id, name,manager_id, ARRAY[name::text] path from officers 
+	where manager_id is null 
+	union all 
+	select o.id, o.name, o.manager_id, r.path||o.name::text
+	from officers o join rec1 r on o.manager_id = r.id 
+)
+select * from rec1;
+
+update officers set manager_id = 8 where id=1;
+
+with recursive rec1(id, name, manager, path)  as (
+	select id, name,manager_id, name::text path from officers 
+	where manager_id is null 
+	union all 
+	select o.id, o.name, o.manager_id, r.path||'>'||o.name
+	from officers o join rec1 r on o.manager_id = r.id 
+)
+select * from rec1;
+
+
+
+with recursive rec1(id, name, manager, path, is_cycle)  as (
+	select id, name,manager_id, ARRAY[name::text] path,false from officers 
+	where id=1
+	union all 
+	select o.id, o.name, o.manager_id, path||o.name::text, o.name = ANY(path) 
+	from officers o join rec1 r on o.manager_id = r.id 
+	where not cycle 
+)
+select * from rec1;
+
+
+with recursive rec1(id, name, manager, path)  as (
+	select id, name,manager_id, ARRAY[name::text] path  from officers 
+	where id=1
+	union all 
+	select o.id, o.name, o.manager_id, path||o.name::text 
+	from officers o join rec1 r on o.manager_id = r.id 
+) CYCLE name SET is_cycle USING path2 
+select * from rec1;
+

@@ -1,0 +1,6 @@
+
+create table some_numeric (col1 numeric, col2 float4, col3 float);
+
+insert into some_numeric (col1, col2, col3) values ('-Infinity','-Infinity','-Infinity'),('Infinity','Infinity','Infinity'),('Nan','Nan','Nan');
+
+select trunc(pi()*ceil(random()*100));

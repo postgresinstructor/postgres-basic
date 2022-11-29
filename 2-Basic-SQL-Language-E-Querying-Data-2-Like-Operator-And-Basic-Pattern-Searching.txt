@@ -1,0 +1,34 @@
+
+create table student (id serial primary key, name varchar(30), last_name varchar(30), address varchar(255), hobbies varchar(1000), birthdate timestamp);
+
+insert into student (name, last_name, address, hobbies, birthdate) 
+values ('Susan', 'White', '123 East St. MI','Swimming, Reading, Dancing', '2005.08.25'::timestamp),
+('Marilyn', 'Brooke', '456 West St. CO','Soccer, Football, Cinema', '2005.04.15'::timestamp),
+('Micheal', 'Harris', '88 Bright St. OH','Walking, Computer Games, Dancing', '2005.05.14'::timestamp),
+('Leo', 'Douglas', '1 Yankee St. WA','Writing Novels, Listening Music, Watching Dance Activities, Talking with Friends', '2005.07.11'::timestamp),
+('Sabrina', 'Clay', '2 Pearl St. TX','Baking, Chess', '2005.07.07'::timestamp),
+('Pam', 'Nelson', '33 Brighton St. CA','Photography, Painting', '2006.08.08'::timestamp),
+('Anna', 'Dostoviski', '123 Notting Hill St. FL','Reading, Painting, Baking', '2005.02.09'::timestamp),
+('Mary', 'Moore', '23 Boerderhood St. KS','Skiing, Tennis, Walking', '2007.03.26'::timestamp),
+('Michelle', 'Bloom', '124 Plus St. LA','Mountain Climbing', '2005.05.25'::timestamp),
+('Paul', 'Valley', '25 Happyslim St. MD','Climbing, Swimming, Cycling', '2004.01.20'::timestamp),
+('Mickey', 'Jobs', '26 Wolf St. MN','Cycling, Walking, Swimming', '2005.11.03'::timestamp),
+('Johny', 'Gaters', '190 Brokers St. MS','Reading, Running, Climbing, Listening Music', '2005.12.30'::timestamp),
+('Rose', 'Park', '121 Mount St. MO','Baseball, Football, Basketball, Swimming', '2008.09.22'::timestamp),
+('Mary', 'Trainor', '21 SouthSea St. NH','Travel, Chess, Playing Guitar, Photography', '2005.03.21'::timestamp),
+('Sandra', 'Plain', '23 Ocean St. NJ','Camping, Climbing', '2006.02.12'::timestamp);
+
+
+select * from student where name like 'S%';
+
+select * from student where name like 'S%a';
+
+select * from student where name like 'M%i%';
+
+select * from student where name like 'M__i%';
+  
+select * from student where hobbies like '%FOOTBALL%';
+
+select * from student where hobbies like '%Football%';
+
+select * from student where upper(hobbies) like '%FOOTBALL%';

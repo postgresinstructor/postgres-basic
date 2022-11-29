@@ -1,0 +1,26 @@
+
+create table bit_sample1 ( col1 bit(5));
+
+insert into bit_sample1 ( col1) values (B'0101');
+
+create table bit_sample2 ( col1 bit);
+
+\d bit_sample2
+
+create table bit_sample3 ( col1 bit varying);
+
+\d bit_sample3
+
+select b'0101'||b'0001';
+
+select b'0101' & b'0001';
+
+select b'0101' >> 1;
+
+select length(b'01110');
+
+select position(b'110' in b'1011001');
+
+select 23::bit(10);
+
+select 23::bit(4);

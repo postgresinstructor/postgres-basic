@@ -1,0 +1,27 @@
+
+create table car (car_id int primary key, brand varchar(50), model varchar(50), power_hp numeric);
+
+insert into car (car_id, brand, model, power_hp) values (1, 'Ford', 'Mustang', 300);
+
+insert into car (car_id, brand, model, power_hp) values (2, 'Hyundai', 'Sonata', 200);
+
+insert into car (car_id, brand, model, power_hp) values (3, 'Volkswagen', 'Golf', 220);
+
+create table electric_car ( range_km numeric) inherits(car);
+
+
+insert into electric_car (car_id, brand, model, power_hp, range_km) values (4, 'Tesla', 'Model 3', 120, 330)
+
+
+select * from car;
+
+select tableoid,* from car;
+
+select tableoid::regclass,* from car;
+
+ select tableoid::regclass,* from only car ;
+
+
+insert into electric_car (car_id, brand, model, power_hp, range_km) values (1, 'Hyundai', 'IONIQ', 110, 300);
+
+insert into electric_car (car_id, brand, model, power_hp, range_km) values (1, 'Audi', 'E-tron', 600, 310);

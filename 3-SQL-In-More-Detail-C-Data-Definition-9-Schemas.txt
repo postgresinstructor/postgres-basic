@@ -1,0 +1,50 @@
+
+create schema postgres;
+
+\dn 
+
+create schema user1 authorization user1;
+
+ create schema pg_test;
+ 
+select * from public.employee;
+
+show search_path ;
+
+select * from employee;
+
+set search_path to postgres 
+
+select * from employee;
+
+select * from public.employee;
+
+create table sample_table5 (id serial primary key, name varchar(30), last_name varchar(30));
+
+Insert into sample_table5 (name, last_name) values ('Frank', 'Miller');
+
+Insert into sample_table5 (name, last_name) values ('james', 'Cold');
+
+grant select on sample_table5 to user1;
+
+\dt 
+\dp
+
+set role user1;
+
+select * from postgres.sample_table5;
+
+set role postgres;
+
+grant usage on schema postgres to user1;
+
+set role user1;
+
+select * from postgres.sample_table5;
+
+
+select * from pg_stat_activity;
+
+
+select * from pg_stat_user_tables;
+

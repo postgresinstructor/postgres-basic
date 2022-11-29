@@ -1,0 +1,35 @@
+
+select company_id, product_id, product_name, price from product;
+
+create view product_view as select company_id, product_id, product_name, price from product;
+
+\dv
+
+\d product_view
+
+ select * from product_view ;
+
+
+select c.company_id, c.company_name, p.product_id, p.product_name, p.price from company c join product_view p on c.company_id = p.company_id;
+
+create view company_product_view as select c.company_id, c.company_name, p.product_id, p.product_name, p.price from company c join product_view p on c.company_id = p.company_id;
+
+\dv 
+
+ drop view product_view ;
+ 
+ drop view product_view cascade;
+
+\dv 
+
+
+
+create view employee1_view as select name,last_name from employee where salary > 8000;
+
+alter view employee1_view rename to employee_view;
+
+drop view employee_view;
+
+create view employee_view  as select * from employee where salary > 8000;
+
+create or replace view employee_view  as select * from employee where salary < 7000;

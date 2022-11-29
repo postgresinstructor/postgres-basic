@@ -1,0 +1,66 @@
+
+create table class ( class_id int, class_name varchar(30));
+
+create table grade (grade_id serial primary key, class_id int references class (class_id) , grade numeric);
+
+alter table class add constraint pk_class primary key (class_id);
+
+create table grade (grade_id serial primary key, class_id int references class (class_id) , grade numeric);
+
+
+insert into class (class_id, class_name) values (1,'Math'), (2,'Physic');
+ 
+insert into grade (class_id, grade) values (1,80);
+
+insert into grade (class_id, grade) values (2,90); 
+
+insert into grade (class_id, grade) values (3,95);
+
+insert into class ( class_id, class_name) values (3, 'Biology');
+
+insert into grade (class_id, grade) values (3,95);
+
+
+drop table class;
+
+drop table class cascade;
+
+drop table grade;
+
+create table class ( class_id int primary key, class_name varchar(30));
+
+create table grade (grade_id serial primary key, class_id int references class (class_id) deferrable, grade numeric);
+
+insert into class (class_id, class_name) values (1,'Math'), (2,'Physic');
+ 
+insert into grade (class_id, grade) values (1,80);
+
+insert into grade (class_id, grade) values (2,90); 
+
+root=> begin;
+BEGIN
+root=*> delete from class where class_id=1;
+DELETE 1
+root=*>
+root=*>
+root=*>
+root=*> commit;
+ERROR:  update or delete on table "class" violates foreign key constraint "grade_class_id_fkey" on table "grade"
+DETAIL:  Key (class_id)=(1) is still referenced from table "grade".
+root=>
+root=> end;
+WARNING:  there is no transaction in progress
+COMMIT
+root=>
+root=> begin;
+BEGIN
+root=*> delete from class where class_id=1;
+DELETE 1
+root=*> delete from grade where class_id=1;
+DELETE 1
+root=*> commit;
+COMMIT
+root=> end;
+WARNING:  there is no transaction in progress
+COMMIT
+
